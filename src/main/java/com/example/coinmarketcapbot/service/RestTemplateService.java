@@ -26,21 +26,40 @@ public class RestTemplateService {
     }
 
     public String getResponseFromURL(String url, Map<String, String> parameters) {
-        try {
-            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(httpHeaders), String.class);
-            String response = responseEntity.getBody();
 
-            return  response;
+        try {
+            url = refactorUrlWithParametersSerch(url, parameters);
+            System.out.println(url);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url,
+                    HttpMethod.GET,
+                    new HttpEntity<>(httpHeaders),
+                    String.class);
+            String response = responseEntity.getBody();
+            return response;
+
         } catch (RestClientException e) {
-            throw new RestClientException("REST REQUEST ERROR -> "+e);
+            throw new RestClientException("REST REQUEST ERROR -> " + e);
         }
     }
 
-    public <T> Object convertJsonToObject(String json, Class<T> type){
+
+    private static String refactorUrlWithParametersSerch(String url, Map<String, String> parameters) {
+        StringBuilder stringBuilder = new StringBuilder(url);
+        if (!parameters.isEmpty()) {
+            stringBuilder.append("?");
+            parameters.forEach((key, value) -> {
+                stringBuilder.append(key.trim()).append("=").append(value.trim()).append("&");
+            });
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        }
+        return stringBuilder.toString();
+    }
+
+    public <T> Object convertJsonToObject(String json, Class<T> type) {
         try {
-            return objectMapper.readValue(json,type);
+            return objectMapper.readValue(json, type);
         } catch (Exception e) {
-            throw new RuntimeException("CONVERT JSON TO OBJECT ERROR -> "+e);
+            throw new RuntimeException("CONVERT JSON TO OBJECT ERROR -> " + e);
         }
     }
 
