@@ -1,6 +1,5 @@
 package com.example.coinmarketcapbot.model.compAnswer;
 
-import lombok.Data;
 
 public class Platform {
     private int id;

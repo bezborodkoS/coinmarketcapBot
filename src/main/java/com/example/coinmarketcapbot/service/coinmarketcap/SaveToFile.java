@@ -31,6 +31,9 @@ public class SaveToFile {
 
     public void writeCoins(List<Coin> courses) {
         try {
+            for (Coin coin : courses) {
+
+            }
             readCoins();
             System.out.println("write");
             objectMapper.writeValue(new File(FILE_PATH), courses);

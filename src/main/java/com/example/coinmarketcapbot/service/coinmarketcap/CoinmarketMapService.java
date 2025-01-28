@@ -25,7 +25,7 @@ public class CoinmarketMapService {
         this.saveToFile = saveToFile;
     }
 
-    @PostConstruct
+//    @PostConstruct
     private List<Coin> getCoinsFromURLMap(Map<String, String> parameters) {
 //        Map<String, String> parameters = new HashMap<>();
 //        parameters.put("listing_status","active");
@@ -36,7 +36,7 @@ public class CoinmarketMapService {
 
         String response = restTemplateService.getResponseFromURL(url, parameters);
         AnswerCoinmarketcap coinmarketcap = (AnswerCoinmarketcap) restTemplateService.convertJsonToObject(response, AnswerCoinmarketcap.class);
-        findNewCoins();
+//        findNewCoins();
         return coinmarketcap.getData();
     }
 

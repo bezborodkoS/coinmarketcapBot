@@ -2,7 +2,6 @@ package com.example.coinmarketcapbot.model;
 
 import com.example.coinmarketcapbot.model.compAnswer.Coin;
 import com.example.coinmarketcapbot.model.compAnswer.Status;
-import lombok.Getter;
 
 
 import java.util.List;
